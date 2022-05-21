@@ -1,0 +1,15 @@
+1 - Carrego no botão "Começar";
+
+2- Aparece um disclaimer com informação sobre o quiz, com um botão para avançar ou cancelar caso se arrependa;
+	- Terá um timeout de 20 segundos, após isso a resposta é dada como errada e continua o jogo;
+	- Cada pergunta terá 4 opções, onde apenas uma é certa;
+	- O Score irá basear-se no número de respostas certas no menor espaço de tempo possível;
+	- Caso erre uma pergunta, não tem problema. O jogo continua.
+
+3- Aparece as 15 perguntas onde terão um tempo limitado ;
+	- Ir buscar uma pergunta random com aquele ID associado;
+	- Guardar as opções num array e dar sort na ordem do mesmo;
+	- Caso a resposta selecionada for igual á resposta certa guardada na base de dados então a resposta está certa;
+	- As perguntares serão displayed dentro de uma tag 'form';
+
+4- Após o jogo terminar, é dado um score e guardado na base de dados;
