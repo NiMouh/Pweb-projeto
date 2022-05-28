@@ -2,6 +2,8 @@
 
 // include header.php
 include('header.php');
+
+// Page content
 echo "<div class='container' style='padding-top: 100px!important;width: 70%;'>
     <div class='caixa-contactos row justify-content-center align-items-center'>
         <div class='map col-lg-6'>

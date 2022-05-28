@@ -75,28 +75,29 @@ form .text_field{
 
 </style>';
 
-// Head of the page
-echo '<head>
-<title>Sign Up</title>
-</head>';
-
 // Make sign-up form if you know that user is not logged in
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['username'])) {
+
+    // Head of the page
+    echo '<head><title>Sign Up</title></head>';
+
     echo '<div class="form-container">';
     echo '<h1>Sign Up</h1>';
-    echo '<form action="signup.php" method="post">
-        <div class="text_field">
-            <input autofocus class="form-control" name="username" placeholder="Username" type="text" required/>
-        </div>
-        <div class="text_field">
-            <input class="form-control" name="password" placeholder="Password" type="password" required/>
-        </div>
-        <div class="text_field">
-            <input class="form-control" name="confirmation" placeholder="Confirm Password" type="password" required/>
-        </div>
-       
-        <button type="submit" class="submit-signup">Sign Up</button>
-    </form>';
+    echo '<form action="signup.php" method="post">';
+    echo '<div class="text_field">';
+    echo '<input autofocus class="form-control" name="username" placeholder="Username" type="text" required/>';
     echo '</div>';
+    echo '<div class="text_field">';
+    echo '<input class="form-control" name="password" placeholder="Password" type="password" required/>';
+    echo '</div>';
+    echo '<div class="text_field">';
+    echo '<input class="form-control" name="confirmation" placeholder="Confirm Password" type="password" required/>';
+    echo '</div>';
+    echo '<button type="submit" class="submit-signup">Sign Up</button>';
+    echo '</form>';
+    echo '</div>';
+} else {
+    // If user is logged in, redirect to index.php
+    header("Location: index.php");
 }
 

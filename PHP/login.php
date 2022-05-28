@@ -112,14 +112,11 @@ form .text_field{
 
 </style>';
 
-// Head of the page
-echo '<head>
-<title>Login</title>
-</head>';
-
 // Make login form if not logged in
 if (!isset($_SESSION['username'])) {
 
+    // Head of the page
+    echo '<head><title>Login</title></head>';
 
     echo '<div class="form-container">';
     echo '<h1>Login</h1>';
@@ -136,8 +133,11 @@ if (!isset($_SESSION['username'])) {
     echo '</div>';
     echo '<input type="submit" name="login" value="Login" class="submit-login"/>';
     echo '</form>';
-    echo '<p style="text-align: center;">Não tens conta? <a href="signup.php">Regista-te</a></p>';
+    echo '<p style="text-align: center;">Não tem conta? <a href="signup.php">Registe-se</a></p>';
     echo '</div>';
+}else{
+    // If logged in, redirect to home
+    header("Location: index.php");
 }
 // Check if login form submitted
 if (isset($_POST['login'])) {

@@ -2,6 +2,8 @@
 // include header.php
 include('header.php');
 
+
+// Page content
 echo " <div class='container' style='padding-top: 100px!important;'>
     <div class='row'>
         <div class='col justify-content-md-center'
