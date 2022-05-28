@@ -8,6 +8,9 @@ echo '<div class="container" style="margin-top:100px;">';
 // declares number of questions and sets it to 16
 $num_questions = 16;
 
+
+/* DECLARAR UM ARRAY BI-DIMENSIONAL ONDE VOU BUSCAR O TITULO E O TÓPICO DO QUIZ E DEPOIS PRINTA-LO NO CARD */
+
 // for loop to create a table with 16 questions
 for ($i = 0; $i < $num_questions; $i++) {
     // Check if $i is 1
