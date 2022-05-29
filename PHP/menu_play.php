@@ -37,6 +37,7 @@ for ($i = 0; $i < $num_questions; $i++) {
                     <h5 class="card-title">Escrever aqui titulo</h5>
                     <p class="card-text">Escrever aqui descrição</p>
                     <a href="play.php" class="btn btn-primary">Jogar</a>
+                    <a href="#" class="btn btn-secondary">Pontuações</a>
                 </div>
           </div>';
 
