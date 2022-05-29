@@ -33,11 +33,25 @@ echo '<style>
         .play-button {
             display: block;
             font-size: 25px;
+            margin-right:15px;
             font-weight: 500;
             color: rgb(0, 114, 187);
         }
 
         .play-button button {
+            padding: 15px 30px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        .exit-button {
+            display: block;
+            font-size: 25px;
+            font-weight: 500;
+            color: rgb(0, 114, 187);
+        }
+
+        .exit-button button {
             padding: 15px 30px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
             0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -260,7 +274,6 @@ echo '<style>
 </style>';
 
 
-
 // div for play-background
 echo '<div class="play-background">';
 
@@ -271,7 +284,29 @@ echo '<div class="container">';
 echo '<div class="d-flex justify-content-center align-items-center vh-100" id="start">
             <div class="play-button" id="play_button">
                 <button type="button" class="btn btn-light btn-lg play-button">Jogar</button>
-            </div>'; // onclick="hide('info_box','play_button')"
+            </div>
+            <div class="exit-button" id="exit_button">
+                <button type="button" class="btn btn-light btn-lg exit-button">Sair</button>
+            </div>';
+
+// If exit button is clicked then redirect to menu_play.php
+echo '<script>
+    $(".exit-button").click(function(){
+        window.location.href = "menu_play.php";
+    });
+</script>';
+
+
+// If play button is clicked then hide the play button and show the info box
+echo '<script>
+    $(document).ready(function(){
+        $("#play_button").click(function(){
+            $("#play_button").hide();
+            $("#exit_button").hide();
+            $("#info_box").show();
+        });
+    });
+</script>';
 
 // echo for the info box
 echo '<div class="info_box" id="info_box">
@@ -292,10 +327,32 @@ echo '<div class="info_box" id="info_box">
                     </div>
                 </div>
                 <div class="button_box">
-                    <button type="button" class="btn btn-secondary btn-lg">Voltar</button>
-                    <button type="button" class="btn btn-primary btn-lg">Começar</button>
+                    <button type="button" id="back-game" class="btn btn-secondary btn-lg">Voltar</button>
+                    <button type="button" id="start-game" class="btn btn-primary btn-lg">Começar</button>
                 </div>
       </div>';
+
+// If back game button is clicked then hide the info box and show the play button
+echo '<script>
+    $(document).ready(function(){
+        $("#back-game").click(function(){
+            $("#info_box").hide();
+            $("#play_button").show();
+            $("#exit_button").show();
+        });
+    });
+</script>';
+
+
+// If start game button is clicked then hide the info box and show the quiz box
+echo '<script>
+    $(document).ready(function(){
+        $("#start-game").click(function(){
+            $("#info_box").hide();
+            $("#quiz_box").show();
+        });
+    });
+</script>';
 
 
 // echo for the quiz box
@@ -415,7 +472,7 @@ echo '<div class="quiz_box_top d-flex justify-content-between align-items-center
                     <h1>Quiz - "Nome Inventado"</h1>
                     <div class="timer_box">
                         <div class="timer_text">Tempo</div>
-                        <div class="timer_value">'.$time_limit.'</div>
+                        <div class="timer_value">' . $time_limit . '</div>
                     </div>
       </div>'; // End of quiz_box_top
 
@@ -424,15 +481,26 @@ echo '<div class="quiz_box_mid">';
 
 // Loop through questions
 foreach ($questions as $question) {
-    // Echo question
-    echo '<div class="question_box"><h1>'.$question['question'].'</h1></div>';
 
-    // Echo answers
-    foreach ($question['answers'] as $letter => $answer) {
-        echo '<div class="answer_item">
-                    <input type="radio" name="answer" id="option-'.$question['id'].'-'.$letter.'" value="'.$letter.'">
-                    <label  class="option" for="option-'.$question['id'].'-'.$letter.'">'.$answer.'</label>
+    // while the time limit is greater than 0
+    while ($time_limit > 0) {
+
+        // Echo question
+        echo '<div class="question_box"><h1>' . $question['question'] . '</h1></div>';
+
+        // Echo answers
+        foreach ($question['answers'] as $letter => $answer) {
+            echo '<div class="answer_item">
+                    <input type="radio"  class="hide-box" name="answer" id="option-' . $question['id'] . '-' . $letter . '" value="' . $letter . '">
+                    <label  class="option" for="option-' . $question['id'] . '-' . $letter . '">' . $answer . '</label>
                 </div>';
+        }
+
+        // Decrease the time limit
+        $time_limit--;
+
+        // Wait 1 second
+        sleep(1);
     }
 }
 
@@ -442,11 +510,12 @@ echo '</div>'; // End of quiz_box_mid
 // Echo bottom of the quiz
 echo '<div class="quiz_box_bottom d-flex justify-content-between align-items-center">
            <p style="margin: 0;">Perguntas respondidas - 2 de 10</p>
-           <button type="button" class="next-button btn btn-primary btn-lg" onclick="nextQuestion()">
+           <button type="button" id="next-question" class="next-button btn btn-primary btn-lg" onclick="nextQuestion()">
                Próxima Pergunta
            </button>
       </div>'; // End of quiz_box_bottom
 
+// If the time limit is 0 or button next question is clicked then go to the next question
 
 echo '</div>'; // End of quiz_box
 
