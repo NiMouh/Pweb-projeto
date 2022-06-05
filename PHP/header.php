@@ -66,7 +66,7 @@ if (!isset($_SESSION['username'])) {
                                             </li>";
 } else {
     echo "<li>
-                        <a class='nav-link' href='play.php'>Jogar</a>
+                        <a class='nav-link' href='menu_play.php'>Jogar</a>
                                             </li>";
     echo "<li>
                         <a class='nav-link' href='logout.php'>Sair</a></li>";
@@ -82,9 +82,16 @@ if (!isset($_SESSION['username'])) {
                         </a>
           </li>";
 } else {
-    echo "<li>
+    // if user username is "admin" make an admin link
+    if ($_SESSION['username'] == "admin") {
+        echo "<li>
+                        <a class='nav-link' href='moderator.php'>Moderação</a>
+              </li>";
+    } else {
+        echo "<li>
                         <a class='nav-link' href='perfil.php'>Perfil</a>
-          </li>";
+              </li>";
+    }
 }
 echo "</ul>
         </div>

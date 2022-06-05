@@ -1,6 +1,8 @@
 <?php
 // include header.php
-include('header.php');
+include('header.php');?>
+
+<?php
 
 echo "<div class='container' style='max-width: 100% !important;padding: 0 !important;'>
     <div class='row linha-principal align-items-center' style='color: white;'>
@@ -11,7 +13,7 @@ if (isset($_SESSION['username'])) {
     echo "<h3>Olá, " . $_SESSION['username'] . "</h3>";
     echo "  <p>Agora que aqui chegou, deseja jogar algum quiz?!</p>
             <button type='button' class='btn btn-light btn-lg'>
-                <a href='signup.php' style='text-decoration: none;color: black;'>Jogar</a>
+                <a href='menu_play.php' style='text-decoration: none;color: black;'>Jogar</a>
             </button>";
 } else {
     echo "<h3>Olá, visitante</h3>";

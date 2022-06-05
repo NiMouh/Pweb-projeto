@@ -24,4 +24,8 @@ if (isset($_SESSION['username'])) {
 
     // Redirect to the home page
     header('Location: index.php');
+} else {
+    // Redirect to the home page
+    header('Location: index.php');
+    exit;
 }

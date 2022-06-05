@@ -1,6 +1,11 @@
 <?php session_start();
 
-echo "<head>
+// if session is not set redirect to the login page
+if (!isset($_SESSION['username'])) {
+    header("Location:index.php");
+    exit;
+} else {
+    echo "<head>
 
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -23,8 +28,8 @@ echo "<head>
             crossorigin='anonymous'></script>
     </head>";
 
-// Style the page
-echo '<style>
+    // Style the page
+    echo '<style>
         .play-background {
             background-color: rgb(0, 114, 187);
             height: 100vh;
@@ -274,14 +279,14 @@ echo '<style>
 </style>';
 
 
-// div for play-background
-echo '<div class="play-background">';
+    // div for play-background
+    echo '<div class="play-background">';
 
-// div for container
-echo '<div class="container">';
+    // div for container
+    echo '<div class="container">';
 
-// echo for the button
-echo '<div class="d-flex justify-content-center align-items-center vh-100" id="start">
+    // echo for the button
+    echo '<div class="d-flex justify-content-center align-items-center vh-100" id="start">
             <div class="play-button" id="play_button">
                 <button type="button" class="btn btn-light btn-lg play-button">Jogar</button>
             </div>
@@ -289,16 +294,16 @@ echo '<div class="d-flex justify-content-center align-items-center vh-100" id="s
                 <button type="button" class="btn btn-light btn-lg exit-button">Sair</button>
             </div>';
 
-// If exit button is clicked then redirect to menu_play.php
-echo '<script>
+    // If exit button is clicked then redirect to menu_play.php
+    echo '<script>
     $(".exit-button").click(function(){
         window.location.href = "menu_play.php";
     });
 </script>';
 
 
-// If play button is clicked then hide the play button and show the info box
-echo '<script>
+    // If play button is clicked then hide the play button and show the info box
+    echo '<script>
     $(document).ready(function(){
         $("#play_button").click(function(){
             $("#play_button").hide();
@@ -308,8 +313,8 @@ echo '<script>
     });
 </script>';
 
-// echo for the info box
-echo '<div class="info_box" id="info_box">
+    // echo for the info box
+    echo '<div class="info_box" id="info_box">
                 <div class="info_title"><h1>Regras do Jogo</h1></div>
                 <div class="info_list">
                     <div class="info">
@@ -332,8 +337,8 @@ echo '<div class="info_box" id="info_box">
                 </div>
       </div>';
 
-// If back game button is clicked then hide the info box and show the play button
-echo '<script>
+    // If back game button is clicked then hide the info box and show the play button
+    echo '<script>
     $(document).ready(function(){
         $("#back-game").click(function(){
             $("#info_box").hide();
@@ -344,8 +349,8 @@ echo '<script>
 </script>';
 
 
-// If start game button is clicked then hide the info box and show the quiz box
-echo '<script>
+    // If start game button is clicked then hide the info box and show the quiz box
+    echo '<script>
     $(document).ready(function(){
         $("#start-game").click(function(){
             $("#info_box").hide();
@@ -355,120 +360,120 @@ echo '<script>
 </script>';
 
 
-// echo for the quiz box
-echo '<div class="quiz_box" id="quiz_box">';
+    // echo for the quiz box
+    echo '<div class="quiz_box" id="quiz_box">';
 
-// Save the questions in a bidimensional array
-$questions = array(
-    array(
-        'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
-        'answers' => array(
-            'a' => 'João Goulart',
-            'b' => 'João Goulart',
-            'c' => 'João Goulart',
-            'd' => 'João Goulart'
+    // Save the questions in a bidimensional array
+    $questions = array(
+        array(
+            'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
+            'answers' => array(
+                'a' => 'João Goulart',
+                'b' => 'João Goulart',
+                'c' => 'João Goulart',
+                'd' => 'João Goulart'
+            ),
+            'correct' => 'a'
         ),
-        'correct' => 'a'
-    ),
-    array(
-        'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
-        'answers' => array(
-            'a' => 'João Goulart',
-            'b' => 'João Goulart',
-            'c' => 'João Goulart',
-            'd' => 'João Goulart'
+        array(
+            'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
+            'answers' => array(
+                'a' => 'João Goulart',
+                'b' => 'João Goulart',
+                'c' => 'João Goulart',
+                'd' => 'João Goulart'
+            ),
+            'correct' => 'a'
         ),
-        'correct' => 'a'
-    ),
-    array(
-        'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
-        'answers' => array(
-            'a' => 'João Goulart',
-            'b' => 'João Goulart',
-            'c' => 'João Goulart',
-            'd' => 'João Goulart'
+        array(
+            'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
+            'answers' => array(
+                'a' => 'João Goulart',
+                'b' => 'João Goulart',
+                'c' => 'João Goulart',
+                'd' => 'João Goulart'
+            ),
+            'correct' => 'a'
         ),
-        'correct' => 'a'
-    ),
-    array(
-        'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
-        'answers' => array(
-            'a' => 'João Goulart',
-            'b' => 'João Goulart',
-            'c' => 'João Goulart',
-            'd' => 'João Goulart'
+        array(
+            'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
+            'answers' => array(
+                'a' => 'João Goulart',
+                'b' => 'João Goulart',
+                'c' => 'João Goulart',
+                'd' => 'João Goulart'
+            ),
+            'correct' => 'a'
         ),
-        'correct' => 'a'
-    ),
-    array(
-        'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
-        'answers' => array(
-            'a' => 'João Goulart',
-            'b' => 'João Goulart',
-            'c' => 'João Goulart',
-            'd' => 'João Goulart'
+        array(
+            'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
+            'answers' => array(
+                'a' => 'João Goulart',
+                'b' => 'João Goulart',
+                'c' => 'João Goulart',
+                'd' => 'João Goulart'
+            ),
+            'correct' => 'a'
         ),
-        'correct' => 'a'
-    ),
-    array(
-        'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
-        'answers' => array(
-            'a' => 'João Goulart',
-            'b' => 'João Goulart',
-            'c' => 'João Goulart',
-            'd' => 'João Goulart'
+        array(
+            'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
+            'answers' => array(
+                'a' => 'João Goulart',
+                'b' => 'João Goulart',
+                'c' => 'João Goulart',
+                'd' => 'João Goulart'
+            ),
+            'correct' => 'a'
         ),
-        'correct' => 'a'
-    ),
-    array(
-        'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
-        'answers' => array(
-            'a' => 'João Goulart',
-            'b' => 'João Goulart',
-            'c' => 'João Goulart',
-            'd' => 'João Goulart'
+        array(
+            'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
+            'answers' => array(
+                'a' => 'João Goulart',
+                'b' => 'João Goulart',
+                'c' => 'João Goulart',
+                'd' => 'João Goulart'
+            ),
+            'correct' => 'a'
         ),
-        'correct' => 'a'
-    ),
-    array(
-        'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
-        'answers' => array(
-            'a' => 'João Goulart',
-            'b' => 'João Goulart',
-            'c' => 'João Goulart',
-            'd' => 'João Goulart'
+        array(
+            'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
+            'answers' => array(
+                'a' => 'João Goulart',
+                'b' => 'João Goulart',
+                'c' => 'João Goulart',
+                'd' => 'João Goulart'
+            ),
+            'correct' => 'a'
         ),
-        'correct' => 'a'
-    ),
-    array(
-        'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
-        'answers' => array(
-            'a' => 'João Goulart',
-            'b' => 'João Goulart',
-            'c' => 'João Goulart',
-            'd' => 'João Goulart'
+        array(
+            'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
+            'answers' => array(
+                'a' => 'João Goulart',
+                'b' => 'João Goulart',
+                'c' => 'João Goulart',
+                'd' => 'João Goulart'
+            ),
+            'correct' => 'a'
         ),
-        'correct' => 'a'
-    ),
-    array(
-        'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
-        'answers' => array(
-            'a' => 'João Goulart',
-            'b' => 'João Goulart',
-            'c' => 'João Goulart',
-            'd' => 'João Goulart'
-        ),
-        'correct' => 'a'
-    ));
+        array(
+            'question' => 'Qual o nome do presidente do Brasil que foi eleito pela primeira vez em 1994?',
+            'answers' => array(
+                'a' => 'João Goulart',
+                'b' => 'João Goulart',
+                'c' => 'João Goulart',
+                'd' => 'João Goulart'
+            ),
+            'correct' => 'a'
+        ));
 
-// Start score at 0
-$score = 0;
+    // Start score at 0
+    $score = 0;
 
-// Set a time limit for the quiz
-$time_limit = 20;
+    // Set a time limit for the quiz
+    $time_limit = 20;
 
-// Echo top of the quiz
-echo '<div class="quiz_box_top d-flex justify-content-between align-items-center">
+    // Echo top of the quiz
+    echo '<div class="quiz_box_top d-flex justify-content-between align-items-center">
                     <h1>Quiz - "Nome Inventado"</h1>
                     <div class="timer_box">
                         <div class="timer_text">Tempo</div>
@@ -476,52 +481,52 @@ echo '<div class="quiz_box_top d-flex justify-content-between align-items-center
                     </div>
       </div>'; // End of quiz_box_top
 
-// Echo mid of the quiz
-echo '<div class="quiz_box_mid">';
+    // Echo mid of the quiz
+    echo '<div class="quiz_box_mid">';
 
-// Loop through questions
-foreach ($questions as $question) {
+    // Loop through questions
+    foreach ($questions as $question) {
 
-    // while the time limit is greater than 0
-    while ($time_limit > 0) {
+        // while the time limit is greater than 0
+        while ($time_limit > 0) {
 
-        // Echo question
-        echo '<div class="question_box"><h1>' . $question['question'] . '</h1></div>';
+            // Echo question
+            echo '<div class="question_box"><h1>' . $question['question'] . '</h1></div>';
 
-        // Echo answers
-        foreach ($question['answers'] as $letter => $answer) {
-            echo '<div class="answer_item">
+            // Echo answers
+            foreach ($question['answers'] as $letter => $answer) {
+                echo '<div class="answer_item">
                     <input type="radio"  class="hide-box" name="answer" id="option-' . $question['id'] . '-' . $letter . '" value="' . $letter . '">
                     <label  class="option" for="option-' . $question['id'] . '-' . $letter . '">' . $answer . '</label>
                 </div>';
+            }
+
+            // Decrease the time limit
+            $time_limit--;
+
+            // Wait 1 second
+            sleep(1);
         }
-
-        // Decrease the time limit
-        $time_limit--;
-
-        // Wait 1 second
-        sleep(1);
     }
-}
 
-echo '</div>'; // End of quiz_box_mid
+    echo '</div>'; // End of quiz_box_mid
 
 
-// Echo bottom of the quiz
-echo '<div class="quiz_box_bottom d-flex justify-content-between align-items-center">
+    // Echo bottom of the quiz
+    echo '<div class="quiz_box_bottom d-flex justify-content-between align-items-center">
            <p style="margin: 0;">Perguntas respondidas - 2 de 10</p>
            <button type="button" id="next-question" class="next-button btn btn-primary btn-lg" onclick="nextQuestion()">
                Próxima Pergunta
            </button>
       </div>'; // End of quiz_box_bottom
 
-// If the time limit is 0 or button next question is clicked then go to the next question
+    // If the time limit is 0 or button next question is clicked then go to the next question
 
-echo '</div>'; // End of quiz_box
+    echo '</div>'; // End of quiz_box
 
 
-// echo for the result box
-echo '<div class="result_box" id="result-box">
+    // echo for the result box
+    echo '<div class="result_box" id="result-box">
                 <div class="icon">
                     <i class="fa fa-child"></i>
                 </div>
@@ -543,7 +548,8 @@ echo '<div class="result_box" id="result-box">
       </div>';
 
 
-// close container
-echo '</div>';
-// close background
-echo '</div>';
+    // close container
+    echo '</div>';
+    // close background
+    echo '</div>';
+}

@@ -79,7 +79,7 @@ form .text_field{
 if (!isset($_SESSION['username'])) {
 
     // Head of the page
-    echo '<head><title>Sign Up</title></head>';
+    echo '<head><title>Sign Up</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>';
 
     echo '<div class="form-container">';
     echo '<h1>Sign Up</h1>';
