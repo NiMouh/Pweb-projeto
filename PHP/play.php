@@ -527,6 +527,9 @@ if (!isset($_SESSION['username'])) {
     // Echo question
     echo '<div class="question_box"><h1 id="question"></h1></div>';
 
+    // Echo form
+    echo '<form id="quiz_form">';
+
     echo '<div class="answer_item">
                     <input type="radio" name="answer" id="option-1" style="display: none;">
                     <label class="option" for="option-1">Opção 1</label>
@@ -554,10 +557,13 @@ if (!isset($_SESSION['username'])) {
     // Echo bottom of the quiz
     echo '<div class="quiz_box_bottom d-flex justify-content-between align-items-center">
            <p id="perguntas-respondidas" style="margin: 0;">Perguntas respondidas - 2 de 10</p>
-           <button type="button" id="next-question" class="next-button btn btn-primary btn-lg">
+           <button type="submit" id="next-question" class="next-button btn btn-primary btn-lg">
                Próxima Pergunta
-           </button>
-      </div>'; // End of quiz_box_bottom
+           </button>';
+
+    echo '</form>'; // End of form
+
+    echo '</div>'; // End of quiz_box_bottom
 
     // If the time limit is 0 or button next question is clicked then go to the next question
 
