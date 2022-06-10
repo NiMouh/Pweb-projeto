@@ -168,10 +168,6 @@ if (!isset($_SESSION['username'])) {
             font-weight: 600;
         }
 
-        .hidebox {
-            display: none;
-        }
-
         .quiz_box_mid .answer_item {
             padding: 5px 0;
             display: block;
@@ -359,6 +355,53 @@ if (!isset($_SESSION['username'])) {
     });
 </script>';
 
+    // Quiz Script
+    echo '<script>
+    // Declare Start game button
+    let start_game = document.queryCommandIndeterm("#start-game");
+
+    // Declare time variable
+    let time = document.queryCommandIndeterm("#perguntas-tempo");
+    
+    // Declare questions and answers variables
+    let question = document.queryCommandIndeterm("#question");
+    let option1 = document.queryCommandIndeterm("#option1");
+    let option2 = document.queryCommandIndeterm("#option2");
+    let option3 = document.queryCommandIndeterm("#option3");
+    let option4 = document.queryCommandIndeterm("#option4");
+    
+    // Declare next button
+    let next_button = document.queryCommandIndeterm("#next-button");
+    
+    // Declare answer questions variable
+    let answer_question = document.queryCommandIndeterm("#perguntas-respondidas");
+    
+    // Declare score variable
+    let score = document.queryCommandIndeterm(".result_value");
+    
+    
+    let index = 0;
+    let timer = 0;
+    let interval = 0;
+    let correct_answer = 0;
+    
+    // Store answer value
+    let userAnswer = undefined;
+    
+    // When button start game is clicked then start the game
+    let countDown = ()=>{
+        if(time === 20){
+            clearInterval(interval);
+        }else{
+            time++;
+            console.log(time);
+        }
+    }
+    
+    setInterval(countDown, 1000);
+    
+    </script>';
+
 
     // echo for the quiz box
     echo '<div class="quiz_box" id="quiz_box">';
@@ -469,53 +512,49 @@ if (!isset($_SESSION['username'])) {
     // Start score at 0
     $score = 0;
 
-    // Set a time limit for the quiz
-    $time_limit = 20;
-
     // Echo top of the quiz
     echo '<div class="quiz_box_top d-flex justify-content-between align-items-center">
                     <h1>Quiz - "Nome Inventado"</h1>
                     <div class="timer_box">
                         <div class="timer_text">Tempo</div>
-                        <div class="timer_value">' . $time_limit . '</div>
+                        <div class="timer_value" id="perguntas-tempo"></div>
                     </div>
       </div>'; // End of quiz_box_top
 
     // Echo mid of the quiz
     echo '<div class="quiz_box_mid">';
 
-    // Loop through questions
-    foreach ($questions as $question) {
+    // Echo question
+    echo '<div class="question_box"><h1 id="question"></h1></div>';
 
-        // while the time limit is greater than 0
-        while ($time_limit > 0) {
+    echo '<div class="answer_item">
+                    <input type="radio" name="answer" id="option-1" style="display: none;">
+                    <label class="option" for="option-1">Opção 1</label>
+          </div>';
 
-            // Echo question
-            echo '<div class="question_box"><h1>' . $question['question'] . '</h1></div>';
+    echo '<div class="answer_item">
+                    <input type="radio" name="answer" id="option-2" style="display: none;">
+                    <label class="option" for="option-2">Opção 2</label>
+            </div>';
 
-            // Echo answers
-            foreach ($question['answers'] as $letter => $answer) {
-                echo '<div class="answer_item">
-                    <input type="radio"  class="hide-box" name="answer" id="option-' . $question['id'] . '-' . $letter . '" value="' . $letter . '">
-                    <label  class="option" for="option-' . $question['id'] . '-' . $letter . '">' . $answer . '</label>
-                </div>';
-            }
+    echo '<div class="answer_item">
+                    <input type="radio" name="answer" id="option-3" style="display: none;">
+                    <label class="option" for="option-3">Opção 3</label>
+            </div>';
 
-            // Decrease the time limit
-            $time_limit--;
+    echo '<div class="answer_item">
+                    <input type="radio" name="answer" id="option-4" style="display: none;">
+                    <label class="option" for="option-4">Opção 4</label>
+            </div>';
 
-            // Wait 1 second
-            sleep(1);
-        }
-    }
 
     echo '</div>'; // End of quiz_box_mid
 
 
     // Echo bottom of the quiz
     echo '<div class="quiz_box_bottom d-flex justify-content-between align-items-center">
-           <p style="margin: 0;">Perguntas respondidas - 2 de 10</p>
-           <button type="button" id="next-question" class="next-button btn btn-primary btn-lg" onclick="nextQuestion()">
+           <p id="perguntas-respondidas" style="margin: 0;">Perguntas respondidas - 2 de 10</p>
+           <button type="button" id="next-question" class="next-button btn btn-primary btn-lg">
                Próxima Pergunta
            </button>
       </div>'; // End of quiz_box_bottom
