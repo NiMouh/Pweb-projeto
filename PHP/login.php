@@ -165,7 +165,7 @@ if (isset($_POST['login'])) {
     }
 
     // Display error message
-    echo '<p class="error">Incorrect username or password</p>';
+    echo '<script>alert("Username already exists")</script>';
 }
 
 ?>
