@@ -144,19 +144,28 @@ if (isset($_POST['login'])) {
     // Get username and password from form
     $username = $_POST['username'];
     $password = $_POST['password'];
-    // Check if username and password are correct
-    if ($username == 'admin' && $password == 'admin') {
-        // Start session and set logged in to true
-        session_start();
-        $_SESSION['username'] = $username;
-        $_SESSION['loggedin'] = true;
 
-        // Redirect to home page
-        header('Location: index.php');
-    } else {
-        // Display error message
-        echo '<p class="error">Incorrect username or password</p>';
+
+
+    // Declare url request
+    $url = 'http://localhost:8000/login';
+    $response = json_decode(file_get_contents($url), true);
+
+
+    // Run response array in a for each loop
+    foreach ($response as $utilizador){
+        // if i found the user in the array, check if the password is correct
+        if ($utilizador['username'] == $username && $utilizador['password'] == $password){
+            // if correct, set session variables and redirect to home
+            session_start();
+            $_SESSION['username'] = $username;
+            $_SESSION['password'] = $password;
+            header("Location: index.php");
+        }
     }
+
+    // Display error message
+    echo '<p class="error">Incorrect username or password</p>';
 }
 
 ?>

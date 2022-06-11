@@ -96,6 +96,49 @@ if (!isset($_SESSION['username'])) {
     echo '<button type="submit" class="submit-signup">Sign Up</button>';
     echo '</form>';
     echo '</div>';
+
+
+    // if i submit the form
+    if (isset($_POST['username'])) {
+        // Get username and password from form
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+
+        $url_login = "http://localhost:8000/login";
+        $response_login = json_decode(file_get_contents($url_login), true);
+
+        // Declared a boolean variable to check if user exists
+        $user_exists = false;
+
+        // for each responde_login
+        foreach ($response_login as $utilizador) {
+            // if i find a match with the $username then error
+            if (strcmp($utilizador['username'], $username) == 0) {
+                echo '<script>alert("Username already exists")</script>';
+                $user_exists = true;
+            }
+        }
+
+        // if user does not exist
+        if (!$user_exists) {
+            // Get url request
+            $url = "http://localhost:8000/signup?username=" . $username . "&password=" . $password;
+
+            // Make a curl post
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS,
+                "username=$username&password=$password");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $server_output = curl_exec($ch);
+            curl_close($ch);
+        }
+
+    }
+
+
 } else {
     // If user is logged in, redirect to index.php
     header("Location: index.php");
