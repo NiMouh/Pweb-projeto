@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 
 // Style the page
 echo '<style>
@@ -135,37 +135,38 @@ if (!isset($_SESSION['username'])) {
     echo '</form>';
     echo '<p style="text-align: center;">Não tem conta? <a href="signup.php">Registe-se</a></p>';
     echo '</div>';
-}else{
-    // If logged in, redirect to home
-    header("Location: index.php");
-}
-// Check if login form submitted
-if (isset($_POST['login'])) {
-    // Get username and password from form
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+
+    // Check if login form submitted
+    if (isset($_POST['login'])) {
+        // Get username and password from form
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
 
+        // Declare url request
+        $url = 'http://localhost:8000/login';
+        $response = json_decode(file_get_contents($url), true);
 
-    // Declare url request
-    $url = 'http://localhost:8000/login';
-    $response = json_decode(file_get_contents($url), true);
 
-
-    // Run response array in a for each loop
-    foreach ($response as $utilizador){
-        // if i found the user in the array, check if the password is correct
-        if ($utilizador['username'] == $username && $utilizador['password'] == $password){
-            // if correct, set session variables and redirect to home
-            session_start();
-            $_SESSION['username'] = $username;
-            $_SESSION['password'] = $password;
-            header("Location: index.php");
+        // Run response array in a for each loop
+        foreach ($response as $utilizador) {
+            // if i found the user in the array, check if the password is correct
+            if ($utilizador['username'] == $username && $utilizador['password'] == $password) {
+                // if correct, set session variables and redirect to home
+                session_start();
+                $_SESSION['username'] = $username;
+                $_SESSION['password'] = $password;
+                header("Location: index.php");
+            }
         }
+
+        // Display error message
+        echo '<script>alert("O Nome de utilizador ou palavra-passe estão incorretos")</script>';
     }
 
-    // Display error message
-    echo '<script>alert("O Nome de utilizador ou palavra-passe estão incorretos")</script>';
+} else {
+    // If logged in, redirect to home
+    header("Location: index.php");
 }
 
 ?>

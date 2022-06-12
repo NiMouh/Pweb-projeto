@@ -98,7 +98,7 @@ if (!isset($_SESSION['username'])) {
     echo '</div>';
 
 
-    // if i submit the form
+    // if I submit the form
     if (isset($_POST['username'])) {
         // Get username and password from form
         $username = $_POST['username'];
@@ -113,7 +113,7 @@ if (!isset($_SESSION['username'])) {
 
         // for each responde_login
         foreach ($response_login as $utilizador) {
-            // if i find a match with the $username then error
+            // if I find a match with the $username then error
             if (strcmp($utilizador['username'], $username) == 0) {
                 echo '<script>alert("Este nome de utilizador já existe")</script>';
                 $user_exists = true;
