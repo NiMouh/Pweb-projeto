@@ -7,27 +7,20 @@ body{
     margin : 0;
     padding: 0;
     background: linear-gradient(to left, rgb(0, 114, 187), rgb(113, 122, 239));
-    height: 100vh;
     overflow: hidden;
 }
 
-.form-container{
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: "Roboto", sans-serif;
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
+.main-div{
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .form-container{
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
    width: 350px;
    background: white;
+   font-family: "Roboto", sans-serif;
    border-radius: 10px;
 }
 
@@ -81,6 +74,7 @@ if (!isset($_SESSION['username'])) {
     // Head of the page
     echo '<head><title>Sign Up</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>';
 
+    echo '<div class="main-div">';
     echo '<div class="form-container">';
     echo '<h1>Sign Up</h1>';
     echo '<form action="signup.php" method="post">';
@@ -95,6 +89,7 @@ if (!isset($_SESSION['username'])) {
     echo '</div>';
     echo '<button type="submit" class="submit-signup">Sign Up</button>';
     echo '</form>';
+    echo '</div>';
     echo '</div>';
 
 

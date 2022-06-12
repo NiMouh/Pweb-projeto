@@ -121,3 +121,28 @@ legend {
 .white-box {
     height: 200px;
 }
+
+/* MENU-PLAY */
+.hidden {
+    display: none;
+}
+
+
+.btn-text{
+    text-decoration: none;
+    color: white;
+}
+
+.card-buttons{
+    display: flex;
+    align-items: center;
+}
+
+.card-buttons .btn-primary{
+    margin-right: 5px;
+}
+
+.btn-text:hover{
+    text-decoration: none;
+    color: white;
+}

@@ -21,10 +21,10 @@ echo "<div class='container' style='padding-top: 100px!important;width: 70%;'>
                     <input type='text' placeholder='Email' class='caixa-texto-curta' form='form' required>
                     <br><br>
                     <select form='form' class='caixa-texto-curta' required>
-                        <option selected>Motivo</option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
+                        <option selected>Motivo:</option>
+                        <option>Informações Adicionais</option>
+                        <option>Proposta</option>
+                        <option>Ajuda do Suporte</option>
                     </select>
                     <br><br>
                     <textarea placeholder='Mensagem' class='caixa-texto-longa' form='form'></textarea>

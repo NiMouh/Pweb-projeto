@@ -25,7 +25,7 @@ if ($_SESSION['username'] != $moderator) {
     echo "<div class='d-flex justify-content-around align-items-center'>";
     echo "<input type='text' name='new-user' placeholder='Nome de Utilizador' class='form-control' required style='margin-right: 10px;'/>";
     echo "<input type='password' name='new-password' placeholder='Palavra-Passe' class='form-control' required style='margin-right: 10px;'/>";
-    echo "<button type='submit' class='btn btn-outline-primary'> + Criar Utilizador</button>";
+    echo "<button type='submit' class='btn btn-outline-primary' style='font-size: x-small;'> + Criar</button>";
     echo "</div>";
     echo "</form>";
     echo "</div>";
@@ -106,7 +106,7 @@ if ($_SESSION['username'] != $moderator) {
     // for each response_login
     foreach ($response_login as $utilizador) {
         // echo form
-        echo "<form action='moderator.php' method='post'>";
+        echo "<form action='moderator.php' method='get'>";
         // echo table row
         echo "<tr>";
         echo "<td>" . $utilizador['IDLogin'] . "</td>";
@@ -119,22 +119,17 @@ if ($_SESSION['username'] != $moderator) {
     }
 
     // If submit button is pressed then delete the user
-    if (isset($_POST['delete-user'])) {
+    if (isset($_GET['delete-user'])) {
         // Get the user's username
-        $username = $_POST['delete-user'];
-
-        // Echo the username
-        echo $username;
+        $username = $_GET['delete-user'];
 
         // Get url request
         $url = "http://localhost:8000/deleteuser?username=" . $username;
 
-        // Make a curl post
+        // Make a curl delete
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,
-            "username=$username");
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $server_output = curl_exec($ch);
         curl_close($ch);
