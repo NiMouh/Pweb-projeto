@@ -165,7 +165,7 @@ if (isset($_POST['login'])) {
     }
 
     // Display error message
-    echo '<script>alert("Username already exists")</script>';
+    echo '<script>alert("O Nome de utilizador ou palavra-passe estão incorretos")</script>';
 }
 
 ?>

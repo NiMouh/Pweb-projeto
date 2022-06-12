@@ -115,7 +115,7 @@ if (!isset($_SESSION['username'])) {
         foreach ($response_login as $utilizador) {
             // if i find a match with the $username then error
             if (strcmp($utilizador['username'], $username) == 0) {
-                echo '<script>alert("Username already exists")</script>';
+                echo '<script>alert("Este nome de utilizador já existe")</script>';
                 $user_exists = true;
             }
         }
@@ -134,6 +134,12 @@ if (!isset($_SESSION['username'])) {
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $server_output = curl_exec($ch);
             curl_close($ch);
+
+            // Login the user
+            session_start();
+            $_SESSION['username'] = $username;
+            $_SESSION['password'] = $password;
+            header("Location: index.php");
         }
 
     }
