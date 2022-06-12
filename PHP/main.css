@@ -1,11 +1,11 @@
-body{
+body {
     margin: 0;
     padding: 0;
 }
 
 
 /* HEADER */
-.navbar{
+.navbar {
     padding: 0.5rem !important;
 }
 
@@ -24,7 +24,7 @@ body{
 
 .linha-final {
     height: 50vh;
-    background-color: rgb(255,255,255);
+    background-color: rgb(255, 255, 255);
     margin: 0 !important;
 }
 
@@ -128,21 +128,416 @@ legend {
 }
 
 
-.btn-text{
+.btn-text {
     text-decoration: none;
     color: white;
 }
 
-.card-buttons{
+.card-buttons {
     display: flex;
     align-items: center;
 }
 
-.card-buttons .btn-primary{
+.card-buttons .btn-primary {
     margin-right: 5px;
 }
 
-.btn-text:hover{
+.btn-text:hover {
     text-decoration: none;
+    color: white;
+}
+
+/* LOGIN PAGE */
+
+.main-div {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to left, rgb(0, 114, 187), rgb(113, 122, 239));
+    overflow: hidden;
+}
+
+.login-form-container {
+    width: 350px;
+    background: white;
+    font-family: "Roboto", sans-serif;
+    border-radius: 10px;
+}
+
+.login-form-container h1 {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+    font-weight: bold;
+    border-bottom: 1px solid #2c3e50;
+}
+
+.login-form-container form {
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.login-form-container form .text_field {
+    position: relative;
+    border-bottom: 1px solid #2c3e50;
+    margin: 30px 0;
+}
+
+.login-form-container .text_field input {
+    width: 100%;
+    padding: 0 5px;
+    height: 40px;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.login-form-container .text_field label {
+    position: absolute;
+    top: -10px;
+    left: 5px;
+    padding: 10px 0;
+    font-size: 15px;
+    color: #2c3e50;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: 0.2s ease all;
+}
+
+.login-form-container .text_field span::before {
+    content: "";
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #2c3e50;
+    transition: 0.2s ease all;
+}
+
+.login-form-container .text_field input:focus ~ label, .text_field input:valid ~ label {
+    top: -10px;
+    font-size: 10px;
+    color: #2c3e50;
+}
+
+.login-form-container .text_field input:focus ~ span::before, .text_field input:valid ~ span::before {
+    top: 0;
+    height: 2px;
+    background: #2c3e50;
+    transition: 0.2s ease all;
+}
+
+
+.submit-login {
+    width: 100%;
+    height: 40px;
+    background: #2c3e50;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+/* SIGNUP PAGE */
+
+
+.signup-form-container {
+    width: 350px;
+    background: white;
+    font-family: "Roboto", sans-serif;
+    border-radius: 10px;
+}
+
+.signup-form-container h1 {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+    font-weight: bold;
+    border-bottom: 1px solid #2c3e50;
+}
+
+.signup-form-container form {
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.signup-form-container form .text_field {
+    position: relative;
+    border-bottom: 1px solid #2c3e50;
+    margin: 30px 0;
+}
+
+.signup-form-container .text_field input {
+    width: 100%;
+    padding: 0 5px;
+    height: 40px;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.signup-form-container .submit-signup {
+    width: 100%;
+    height: 40px;
+    background: #2c3e50;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+
+/* PLAY PAGE */
+
+.play-background {
+    background-color: rgb(0, 114, 187);
+    height: 100vh;
+}
+
+.play-button {
+    display: block;
+    font-size: 25px;
+    margin-right:15px;
+    font-weight: 500;
+    color: rgb(0, 114, 187);
+}
+
+.play-button button {
+    padding: 15px 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.exit-button {
+    display: block;
+    font-size: 25px;
+    font-weight: 500;
+    color: rgb(0, 114, 187);
+}
+
+.exit-button button {
+    padding: 15px 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.info_box {
+    display: none;
+    background: white;
+    border-radius: 5px;
+}
+
+.info_box .info_title h1 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.info_box .info_title {
+    height: 60px;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    padding: 0 35px;
+}
+
+.info_box .info_list {
+    padding: 15px 35px;
+}
+
+.info_box .info_list .info {
+    margin: 5px 0;
+    font-size: 15px;
+}
+
+.info_box .info_list .info span {
+    font-weight: 600;
+    color: #007bff;
+}
+
+.info_box .button_box {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px 35px;
+    border-top: 1px solid lightgray;
+}
+
+.info_box .button_box button {
+    font-size: 15px;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.quiz_box {
+    display: none;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.quiz_box .quiz_box_top {
+    padding: 15px 35px;
+    height: 70px;
+    border-bottom: 1px solid lightgray;
+}
+
+.quiz_box .quiz_box_top h1 {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0 100px 0 0;
+}
+
+.quiz_box .quiz_box_top .timer_box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 140px;
+    height: 45px;
+    background: #cce5ff;
+    border: 1px solid #b8daff;
+    border-radius: 5px;
+    padding: 0 8px;
+}
+
+.quiz_box .quiz_box_top .timer_box .timer_text {
+    font-size: 17px;
+    user-select: none;
+    font-weight: 400;
+}
+
+.quiz_box .quiz_box_top .timer_box .timer_value {
+    font-size: 16px;
+    font-weight: 500;
+    background: #343a40;
+    color: white;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 5px;
+    border: 1px solid #343a40;
+}
+
+.quiz_box .quiz_box_mid {
+    padding: 25px 30px 20px 30px;
+}
+
+.quiz_box .quiz_box_mid .question_box h1 {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.quiz_box_mid .answer_item {
+    padding: 5px 0;
+    display: block;
+}
+
+.answer_item .option {
+    background: aliceblue;
+    border: 1px solid #b8daff;
+    border-radius: 5px;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.answer_item .option:hover {
+    color: #004085;
+    background: #cce5ff;
+    border-color: #cce5ff;
+}
+
+.answer_item input[type=radio]:checked + .option {
+    background: #343a40;
+    color: white;
+    border-color: #343a40;
+}
+
+.quiz_box .quiz_box_bottom {
+    height: 60px;
+    padding: 0 30px;
+}
+
+.quiz_box .quiz_box_bottom .next-button {
+    font-size: 15px;
+    height: 40px;
+}
+
+.result_box {
+    display: none;
+    background: white;
+    border-radius: 5px;
+    text-align: center;
+    padding: 30px 35px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.result_box .icon {
+    color: rgb(0, 114, 187);
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.result_box .result_text h1 {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.result_box .result_text p {
+    margin: 15px 0;
+    font-size: 16px;
+}
+
+.result_box .button_box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.result_box .button_box .btn-primary {
+    background: rgb(0, 114, 187);
+    border: 1px solid rgb(0, 114, 187);
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.result_box .button_box .btn-primary:hover {
+    background: rgb(0, 94, 187);
+    border: 1px solid rgb(0, 94, 187);
+}
+
+.result_box .button_box .btn-secondary {
+    background: white;
+    border: 1px solid rgb(0, 114, 187);
+    color: rgb(0, 114, 187);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.result_box .button_box .btn-secondary:hover {
+    background: rgb(0, 114, 187);
+    border: 1px solid rgb(0, 114, 187);
     color: white;
 }

@@ -1,5 +1,4 @@
 <?php
-
 // include header.php
 include("header.php");
 
@@ -113,5 +112,4 @@ if (!isset($_SESSION['username'])) {
 
     // include footer.php
     include("footer.php");
-
 }

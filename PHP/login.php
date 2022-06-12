@@ -1,109 +1,7 @@
 <?php session_start();
 
-// Style the page
-echo '<style>
-
-body{
-    margin : 0;
-    padding: 0;
-    background: linear-gradient(to left, rgb(0, 114, 187), rgb(113, 122, 239));
-    overflow: hidden;
-}
-
-.main-div{
-    height:100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.form-container{
-   width: 350px;
-   background: white;
-   font-family: "Roboto", sans-serif;
-   border-radius: 10px;
-}
-
-.form-container h1{
-    text-align: center;
-    padding: 20px 0;
-    font-size: 30px;
-    font-weight: bold;
-    border-bottom: 1px solid #2c3e50;
-}
-
-.form-container form{
-padding: 0 40px;
-box-sizing: border-box;
-}
-
-form .text_field{
-    position: relative;
-    border-bottom: 1px solid #2c3e50;
-    margin: 30px 0;
-}
-
-.text_field input{
-    width: 100%;
-    padding: 0 5px;
-    height: 40px;
-    font-size: 15px;
-    border: none;
-    outline: none;
-    background: none;
-}
-
-.text_field label{
-    position: absolute;
-    top: -10px;
-    left: 5px;
-    padding: 10px 0;
-    font-size: 15px;
-    color: #2c3e50;
-    pointer-events: none;
-    transform:translateY(-50%);
-    transition: 0.2s ease all;
-}
-
-.text_field span::before{
-    content: "";
-    position: absolute;
-    top: 40px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: #2c3e50;
-    transition: 0.2s ease all;
-}
-
-.text_field input:focus ~ label, .text_field input:valid ~ label{
-    top: -10px;
-    font-size: 10px;
-    color: #2c3e50;
-}
-
-.text_field input:focus ~ span::before, .text_field input:valid ~ span::before{
-    top: 0;
-    height: 2px;
-    background: #2c3e50;
-    transition: 0.2s ease all;
-}
-
-
-.submit-login{
-    width: 100%;
-    height: 40px;
-    background: #2c3e50;
-    border: none;
-    outline: none;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 20px;
-    margin-top: 20px;
-}
-
-</style>';
+// Import main.css
+echo '<link rel="stylesheet" href="main.css">';
 
 // Make login form if not logged in
 if (!isset($_SESSION['username'])) {
@@ -112,7 +10,7 @@ if (!isset($_SESSION['username'])) {
     echo '<head><title>Login</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>';
 
     echo '<div class="main-div">';
-    echo '<div class="form-container">';
+    echo '<div class="login-form-container">';
     echo '<h1>Login</h1>';
     echo '<form action="login.php" method="post">';
     echo '<div class="text_field">';

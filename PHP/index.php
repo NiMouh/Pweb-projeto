@@ -1,8 +1,6 @@
 <?php
 // include header.php
-include('header.php');?>
-
-<?php
+include('header.php');
 
 echo "<div class='container' style='max-width: 100% !important;padding: 0 !important;'>
     <div class='row linha-principal align-items-center' style='color: white;'>

@@ -1,6 +1,4 @@
 <?php
-// If session user is different from moderator user, redirect to index.php
-
 // include header.php
 include 'header.php';
 
