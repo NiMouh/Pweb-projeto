@@ -5,7 +5,9 @@ if (!isset($_SESSION['username'])) {
     header("Location:index.php");
     exit;
 } else {
-    echo "<head>
+    if (isset($_POST['quiz-id'])) {
+
+        echo "<head>
 
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -28,18 +30,18 @@ if (!isset($_SESSION['username'])) {
             crossorigin='anonymous'></script>
     </head>";
 
-    // link to main.css
-    echo "<link rel='stylesheet' href='main.css'>";
+        // link to main.css
+        echo "<link rel='stylesheet' href='main.css'>";
 
 
-    // div for play-background
-    echo '<div class="play-background">';
+        // div for play-background
+        echo '<div class="play-background">';
 
-    // div for container
-    echo '<div class="container">';
+        // div for container
+        echo '<div class="container">';
 
-    // echo for the button
-    echo '<div class="d-flex justify-content-center align-items-center vh-100" id="start">
+        // echo for the button
+        echo '<div class="d-flex justify-content-center align-items-center vh-100" id="start">
             <div class="play-button" id="play_button">
                 <button type="button" class="btn btn-light btn-lg play-button">Jogar</button>
             </div>
@@ -47,16 +49,16 @@ if (!isset($_SESSION['username'])) {
                 <button type="button" class="btn btn-light btn-lg exit-button">Sair</button>
             </div>';
 
-    // If exit button is clicked then redirect to menu_play.php
-    echo '<script>
+        // If exit button is clicked then redirect to menu_play.php
+        echo '<script>
     $(".exit-button").click(function(){
         window.location.href = "menu_play.php";
     });
 </script>';
 
 
-    // If play button is clicked then hide the play button and show the info box
-    echo '<script>
+        // If play button is clicked then hide the play button and show the info box
+        echo '<script>
     $(document).ready(function(){
         $("#play_button").click(function(){
             $("#play_button").hide();
@@ -66,8 +68,8 @@ if (!isset($_SESSION['username'])) {
     });
 </script>';
 
-    // echo for the info box
-    echo '<div class="info_box" id="info_box">
+        // echo for the info box
+        echo '<div class="info_box" id="info_box">
                 <div class="info_title"><h1>Regras do Jogo</h1></div>
                 <div class="info_list">
                     <div class="info">
@@ -90,8 +92,8 @@ if (!isset($_SESSION['username'])) {
                 </div>
       </div>';
 
-    // If back game button is clicked then hide the info box and show the play button
-    echo '<script>
+        // If back game button is clicked then hide the info box and show the play button
+        echo '<script>
     $(document).ready(function(){
         $("#back-game").click(function(){
             $("#info_box").hide();
@@ -102,8 +104,8 @@ if (!isset($_SESSION['username'])) {
 </script>';
 
 
-    // If start game button is clicked then hide the info box and show the quiz box
-    echo '<script>
+        // If start game button is clicked then hide the info box and show the quiz box
+        echo '<script>
     $(document).ready(function(){
         $("#start-game").click(function(){
             $("#info_box").hide();
@@ -112,8 +114,8 @@ if (!isset($_SESSION['username'])) {
     });
 </script>';
 
-    // Quiz Script
-    echo '<script>
+        // Quiz Script
+        echo '<script>
     // Declare Start game button
     let start_game = document.queryCommandIndeterm("#start-game");
 
@@ -159,15 +161,23 @@ if (!isset($_SESSION['username'])) {
     
     </script>';
 
+        /* As perguntas vão ser geradas aqui e guardadas num array */
 
-    // echo for the quiz box
-    echo '<div class="quiz_box" id="quiz_box">';
+        // Get the quiz id
+        $quiz_id = $_POST['quiz-id'];
 
-    // Start score at 0
-    $score = 0;
+        // Get the url request
+        $url = "http://localhost:8000/quiz_questions?IDQuiz=" . $quiz_id;
+        $response = json_decode(file_get_contents($url), true);
 
-    // Echo top of the quiz
-    echo '<div class="quiz_box_top d-flex justify-content-between align-items-center">
+        // echo for the quiz box
+        echo '<div class="quiz_box" id="quiz_box">';
+
+        // Start score at 0
+        $score = 0;
+
+        // Echo top of the quiz
+        echo '<div class="quiz_box_top d-flex justify-content-between align-items-center">
                     <h1>Quiz - "Nome Inventado"</h1>
                     <div class="timer_box">
                         <div class="timer_text">Tempo</div>
@@ -175,57 +185,57 @@ if (!isset($_SESSION['username'])) {
                     </div>
       </div>'; // End of quiz_box_top
 
-    // Echo mid of the quiz
-    echo '<div class="quiz_box_mid">';
+        // Echo mid of the quiz
+        echo '<div class="quiz_box_mid">';
 
-    // Echo question
-    echo '<div class="question_box"><h1 id="question"></h1></div>';
+        // Echo question
+        echo '<div class="question_box"><h1 id="question"></h1></div>';
 
-    // Echo form
-    echo '<form id="quiz_form">';
+        // Echo form
+        echo '<form id="quiz_form">';
 
-    echo '<div class="answer_item">
+        echo '<div class="answer_item">
                     <input type="radio" name="answer" id="option-1" style="display: none;">
                     <label class="option" for="option-1">Opção 1</label>
           </div>';
 
-    echo '<div class="answer_item">
+        echo '<div class="answer_item">
                     <input type="radio" name="answer" id="option-2" style="display: none;">
                     <label class="option" for="option-2">Opção 2</label>
             </div>';
 
-    echo '<div class="answer_item">
+        echo '<div class="answer_item">
                     <input type="radio" name="answer" id="option-3" style="display: none;">
                     <label class="option" for="option-3">Opção 3</label>
             </div>';
 
-    echo '<div class="answer_item">
+        echo '<div class="answer_item">
                     <input type="radio" name="answer" id="option-4" style="display: none;">
                     <label class="option" for="option-4">Opção 4</label>
             </div>';
 
 
-    echo '</div>'; // End of quiz_box_mid
+        echo '</div>'; // End of quiz_box_mid
 
 
-    // Echo bottom of the quiz
-    echo '<div class="quiz_box_bottom d-flex justify-content-between align-items-center">
+        // Echo bottom of the quiz
+        echo '<div class="quiz_box_bottom d-flex justify-content-between align-items-center">
            <p id="perguntas-respondidas" style="margin: 0;">Perguntas respondidas - 2 de 10</p>
            <button type="submit" id="next-question" class="next-button btn btn-primary btn-lg">
                Próxima Pergunta
            </button>';
 
-    echo '</form>'; // End of form
+        echo '</form>'; // End of form
 
-    echo '</div>'; // End of quiz_box_bottom
+        echo '</div>'; // End of quiz_box_bottom
 
-    // If the time limit is 0 or button next question is clicked then go to the next question
+        // If the time limit is 0 or button next question is clicked then go to the next question
 
-    echo '</div>'; // End of quiz_box
+        echo '</div>'; // End of quiz_box
 
 
-    // echo for the result box
-    echo '<div class="result_box" id="result-box">
+        // echo for the result box
+        echo '<div class="result_box" id="result-box">
                 <div class="icon">
                     <i class="fa fa-child"></i>
                 </div>
@@ -245,10 +255,14 @@ if (!isset($_SESSION['username'])) {
                 </div>
 
       </div>';
+        /* AQUI VAI SER MANDADO PARA A BASE DE DADOS OS RESULTADOS DESTE QUESTIONARIOS ATRAVÉS DE UM 2 FORMS
+        - UM QUE GUARDA E MANDA O UTILIZADOR PARA ATRÁS COMEÇANDO O QUESTIONARIO NOVAMENTE
+        - OUTRO QUE VOLTA PARA O MENU PRINCIPAL
+        */
 
-
-    // close container
-    echo '</div>';
-    // close background
-    echo '</div>';
+        // close container
+        echo '</div>';
+        // close background
+        echo '</div>';
+    }
 }

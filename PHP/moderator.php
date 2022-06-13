@@ -103,6 +103,11 @@ if ($_SESSION['username'] != $moderator) {
 
     // for each response_login
     foreach ($response_login as $utilizador) {
+
+        // Get the url request for user quiz counts
+        $url_quiz = "http://localhost:8000/count_user_scores?IDLogin=" . $utilizador['IDLogin'];
+        $response_quiz = json_decode(file_get_contents($url_quiz), true);
+
         // echo form
         echo "<form action='moderator.php' method='get'>";
         // echo table row
@@ -110,7 +115,7 @@ if ($_SESSION['username'] != $moderator) {
         echo "<td>" . $utilizador['IDLogin'] . "</td>";
         echo "<td>" . $utilizador['username'] . "<input type='text' name='delete-user' value='" . $utilizador['username'] . "' style='display: none;'/></td>";
         echo "<td>" . $utilizador['password'] . "</td>";
-        echo "<td>0</td>";
+        echo "<td>" . $response_quiz[0]['COUNT(*)'] . "</td>";
         echo "<td><button type='submit' class='btn btn-danger'>Eliminar</button></td>";
         echo "</tr>";
         echo "</form>";
