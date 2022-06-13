@@ -20,7 +20,7 @@ if (!isset($_SESSION['username'])) {
     $i = 0;
 
     // For each quiz in the response
-    foreach($response as $quiz){
+    foreach ($response as $quiz) {
         // Check if $i is 1
         if ($i == 0) {
             // echo first row
@@ -42,12 +42,12 @@ if (!isset($_SESSION['username'])) {
         // echo card div
         echo '<div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">'.$quiz['titulo'].'</h5>
-                    <p class="card-text">'.$quiz['designacao'].'</p>
+                    <h5 class="card-title">' . $quiz['titulo'] . '</h5>
+                    <p class="card-text">' . $quiz['designacao'] . '</p>
                 <div class="card-buttons">
                     <button class="btn btn-primary"><a class="btn-text" href="play.php">Jogar</a></button>
-                    <form action="menu_play.php" method="post">
-                        <input type="hidden" name="pontuacoes" value="'.$quiz['IDQuiz'].'">
+                    <form action="gerarpdf.php" method="post">
+                        <input type="hidden" name="pontuacoes" value="' . $quiz['IDQuiz'] . '">
                         <button type="submit" class="btn btn-secondary">Pontuações</button>
                     </form>
                 </div>
@@ -60,44 +60,6 @@ if (!isset($_SESSION['username'])) {
         // increment $i
         $i++;
     }
-
-    // if is posted pontuacoes (incompleta)
-    /*
-    if (isset($_POST['pontuacoes'])) {
-        // Get the quiz id
-        $quiz_id = $_POST['pontuacoes'];
-
-        // Get the url request
-        $url = "http://localhost:8000/pontuacoes?IDQuiz=" . $quiz_id;
-        $response = json_decode(file_get_contents($url), true);
-
-        // declare FPDF class
-        require_once('fpdf/fpdf.php');
-
-        // declare FPDF object
-        $pdf = new FPDF();
-
-        // Transfer $response to a table and print it on the pdf
-        $pdf->AddPage();
-        $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(40, 10, 'Pontuações');
-        $pdf->Ln();
-        $pdf->Cell(40, 10, 'IDLogin');
-        $pdf->Cell(40, 10, 'IDQuiz');
-        $pdf->Cell(40, 10, 'Pontos');
-        $pdf->Ln();
-        foreach ($response as $pontuacao) {
-            $pdf->Cell(40, 10, $pontuacao['IDLogin']);
-            $pdf->Cell(40, 10, $pontuacao['IDQuiz']);
-            $pdf->Cell(40, 10, $pontuacao['pontos']);
-            $pdf->Ln();
-        }
-        // Output the pdf
-        $pdf->Output();
-
-
-    }
-    */
 
     // Close last colum div
     echo '</div>';
@@ -113,3 +75,4 @@ if (!isset($_SESSION['username'])) {
     // include footer.php
     include("footer.php");
 }
+

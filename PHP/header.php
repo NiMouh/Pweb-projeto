@@ -10,6 +10,9 @@ echo "<!DOCTYPE html>
     <!-- Main CSS-->
     <link rel='stylesheet' href='main.css'>
     
+    <!-- Link Icon -->
+    <link rel='icon' href='Imagens/quiz.png'>
+    
     
     
     <!--- Font Awesome -->
