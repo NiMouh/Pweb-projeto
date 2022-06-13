@@ -57,6 +57,8 @@ if (isset($_SESSION['username'])) {
     // Echo 'Resultados'
     echo '<h4 class="profile-text">Resultados</h4>';
 
+    /* FALTA COLOCAR AQUI A QUERY */
+
     // Echo the results
     echo '<p>0</p>';
 
@@ -68,6 +70,8 @@ if (isset($_SESSION['username'])) {
 
     // Echo 'Maior pontuação'
     echo '<h4 class="profile-text">Maior pontuação</h4>';
+
+    /* FALTA COLOCAR AQUI A QUERY */
 
     // Echo the highest score
     echo '<p>0</p>';
@@ -90,7 +94,7 @@ if (isset($_SESSION['username'])) {
                 var confirm = prompt("Confirmar palavra-passe");
                 if (confirm === "' . $password . '") {
                     var profile_username = document.getElementById("profile-username").value;
-                    window.location.href = "http://localhost:8000/update_profile?username=" + profile_username + "&old_username=" + '.$username.';
+                    window.location.href = "http://localhost:8000/update_profile?username=" + profile_username + "&old_username=" + ' . $username . ';
                 } else {
                     alert("Palavra-passe incorreta");
                 }
