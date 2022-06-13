@@ -38,9 +38,9 @@ if (isset($_SESSION['username'])) {
     echo '<script>
             document.getElementById("edit-profile").addEventListener("click", function() {
                 if (document.getElementById("profile-username").readOnly) {
-                    document.getElementById("profile-username").readOnly = false;
+                    return document.getElementById("profile-username").readOnly = false;
                 } else {
-                    document.getElementById("profile-username").readOnly = true;
+                    return document.getElementById("profile-username").readOnly = true;
                 }
             });
             </script>';
@@ -83,14 +83,14 @@ if (isset($_SESSION['username'])) {
     echo '<div class="guardar-container">';
 
     // Echo guardar button
-    echo '<button class="btn btn-primary">Guardar</button>';
+    echo '<button class="profile-save-chances btn btn-primary">Guardar</button>';
 
     // Declares $password as user's password
     $password = $_SESSION['password'];
 
     // If the user clicks the button, pop up a confirmation box and check if it matches with the $password variable, if so, get the profile_username value
     echo '<script>
-            document.getElementsByClassName("btn btn-primary")[0].addEventListener("click", function() {
+            document.getElementsByClassName("profile-save-chances")[0].addEventListener("click", function() {
                 var confirm = prompt("Confirmar palavra-passe");
                 if (confirm === "' . $password . '") {
                     var profile_username = document.getElementById("profile-username").value;
