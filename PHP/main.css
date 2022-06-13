@@ -3,7 +3,6 @@ body {
     padding: 0;
 }
 
-
 /* HEADER */
 .navbar {
     padding: 0.5rem !important;
@@ -540,4 +539,45 @@ legend {
     background: rgb(0, 114, 187);
     border: 1px solid rgb(0, 114, 187);
     color: white;
+}
+
+
+/* PERFIL PAGE */
+
+.profile-container{
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+}
+
+.profile-header a{
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.profile-body{
+    padding: 20px;
+}
+
+.profile-body .profile-title{
+    font-size: 30px;
+}
+
+.profile-body #profile-username{
+    font-size: 23px;
+    color: rgba(0, 0, 0, 0.5);
+    border: none;
+}
+
+.profile-footer .resultados-container, .profile-footer .maior-pontuacao-container{
+    margin-right: 25px;
+}
+
+.resultados-container h4, .maior-pontuacao-container h4{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.resultados-container p, .maior-pontuacao-container p{
+    font-size: 16px;
+    color:  rgba(0, 0, 0, 0.5);
 }
