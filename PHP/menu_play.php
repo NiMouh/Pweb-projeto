@@ -45,7 +45,10 @@ if (!isset($_SESSION['username'])) {
                     <h5 class="card-title">' . $quiz['titulo'] . '</h5>
                     <p class="card-text">' . $quiz['designacao'] . '</p>
                 <div class="card-buttons">
-                    <button class="btn btn-primary"><a class="btn-text" href="play.php">Jogar</a></button>
+                    <form action="play.php" method="post">
+                        <input type="hidden" name="quiz-id" value="' . $quiz['IDQuiz'] . '">
+                        <button type="submit" class="btn btn-primary">Jogar</button>
+                    </form>
                     <form action="gerarpdf.php" method="post">
                         <input type="hidden" name="pontuacoes" value="' . $quiz['IDQuiz'] . '">
                         <button type="submit" class="btn btn-secondary">Pontuações</button>

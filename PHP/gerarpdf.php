@@ -28,7 +28,7 @@ if (isset($_POST['pontuacoes'])) {
     foreach ($response as $pontuacao) {
         $pdf->Cell(40, 10, $pontuacao['IDLogin']);
         $pdf->Cell(40, 10, $pontuacao['IDQuiz']);
-        $pdf->Cell(40, 10, $pontuacao['pontos']);
+        $pdf->Cell(40, 10, $pontuacao['pontuacao']);
         $pdf->Ln();
     }
     // Output the pdf
