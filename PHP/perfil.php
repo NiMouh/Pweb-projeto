@@ -101,8 +101,19 @@ if (isset($_SESSION['username'])) {
             });
             </script>';
 
+    /* PRECISO DE UMA MANEIRA DE OBTER A VARIAVEL PROFILE USERNAME ACIMA */
 
-    // If user clicks on guardar button, make a function that asks to confirm the password and then returns the username
+    /*
+    // Get profile_username value from last script
+    $url_update = "http://localhost:8000/update_profile?username=" . $profile_username . "&old_username=". $username;
+    // IF url_update is not empty curl it to update the profile
+    if ($url_update != "") {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url_update);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($ch);
+        curl_close($ch);
+    }*/
 
     // close div for guardar
     echo '</div>';

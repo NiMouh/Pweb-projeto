@@ -306,7 +306,7 @@ legend {
 .play-button {
     display: block;
     font-size: 25px;
-    margin-right:15px;
+    margin-right: 15px;
     font-weight: 500;
     color: rgb(0, 114, 187);
 }
@@ -544,41 +544,42 @@ legend {
 
 /* PERFIL PAGE */
 
-.profile-container{
+.profile-container {
     padding: 20px;
+    margin: 20px;
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.profile-header a{
+.profile-header a {
     color: rgba(0, 0, 0, 0.5);
 }
 
-.profile-body{
+.profile-body {
     padding: 20px;
 }
 
-.profile-body .profile-title{
+.profile-body .profile-title {
     font-size: 30px;
 }
 
-.profile-body #profile-username{
+.profile-body #profile-username {
     font-size: 23px;
     color: rgba(0, 0, 0, 0.5);
     border: none;
 }
 
-.profile-footer .resultados-container, .profile-footer .maior-pontuacao-container{
+.profile-footer .resultados-container, .profile-footer .maior-pontuacao-container {
     margin-right: 25px;
 }
 
-.resultados-container h4, .maior-pontuacao-container h4{
+.resultados-container h4, .maior-pontuacao-container h4 {
     font-size: 20px;
     font-weight: 500;
 }
 
-.resultados-container p, .maior-pontuacao-container p{
+.resultados-container p, .maior-pontuacao-container p {
     font-size: 16px;
-    color:  rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.5);
 }
