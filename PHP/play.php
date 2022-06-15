@@ -5,7 +5,15 @@ if (!isset($_SESSION['username'])) {
     header("Location:index.php");
     exit;
 } else {
-    if (isset($_POST['quiz-id'])) {
+    if(isset($_POST['quiz-id']))
+    {
+        setcookie("quiz-id", $_POST['quiz-id'], time() + (86400 * 30), "/");
+        setcookie("game", "0", time() + (86400 * 30), "/");
+        setcookie("pontuacao", "0", time() + (86400 * 30), "/");
+        header("Location:play.php");
+    }
+
+    if (isset($_POST['quiz-id']) || isset($_COOKIE['quiz-id'])) {
 
         echo "<head>
 
@@ -34,232 +42,203 @@ if (!isset($_SESSION['username'])) {
         echo "<link rel='stylesheet' href='main.css'>";
 
 
-        // div for play-background
-        echo '<div class="play-background">';
-
-        // div for container
-        echo '<div class="container">';
-
-        // echo for the button
-        echo '<div class="d-flex justify-content-center align-items-center vh-100" id="start">
-            <div class="play-button" id="play_button">
-                <button type="button" class="btn btn-light btn-lg play-button">Jogar</button>
-            </div>
-            <div class="exit-button" id="exit_button">
-                <button type="button" class="btn btn-light btn-lg exit-button">Sair</button>
-            </div>';
-
-        // If exit button is clicked then redirect to menu_play.php
-        echo '<script>
-    $(".exit-button").click(function(){
-        window.location.href = "menu_play.php";
-    });
-</script>';
+        echo '
+            <div class="play-background">
+                <div class="container">
+                    <div class="d-flex justify-content-center align-items-center vh-100" id="start">
+        ';
 
 
-        // If play button is clicked then hide the play button and show the info box
-        echo '<script>
-    $(document).ready(function(){
-        $("#play_button").click(function(){
-            $("#play_button").hide();
-            $("#exit_button").hide();
-            $("#info_box").show();
-        });
-    });
-</script>';
+        if (isset($_POST['exit_game']))
+        {
+            setcookie("quiz-id", "", time() - 3600);
+            setcookie("game", "", time() - 3600);
+            setcookie("pontuacao", "", time() - 3600);
+            setcookie("nr_q_atual", "", time() - 3600);
+            setcookie("qtd_q", "", time() - 3600);
+            unset($_POST['exit_game']);
+            unset($_POST['quiz-id']);
+            unset($_POST['repeat_game']);
+            unset($_POST['back_game']);
 
-        // echo for the info box
-        echo '<div class="info_box" id="info_box">
-                <div class="info_title"><h1>Regras do Jogo</h1></div>
-                <div class="info_list">
-                    <div class="info">
-                        1- Terá um timeout de <span>20 segundos</span>, depois a resposta é dada como
-                        errada e continua o jogo.
-                    </div>
-                    <div class="info">
-                        2- Cada pergunta terá 4 opções, onde <span>apenas uma</span> é certa.
-                    </div>
-                    <div class="info">
-                        3- O resultado basea-se no número de respostas certas no menor espaço de tempo possível.
-                    </div>
-                    <div class="info">
-                        4- Caso erre uma pergunta, não tem problema. O jogo continua.
-                    </div>
-                </div>
-                <div class="button_box">
-                    <button type="button" id="back-game" class="btn btn-secondary btn-lg">Voltar</button>
-                    <button type="button" id="start-game" class="btn btn-primary btn-lg">Começar</button>
-                </div>
-      </div>';
-
-        // If back game button is clicked then hide the info box and show the play button
-        echo '<script>
-    $(document).ready(function(){
-        $("#back-game").click(function(){
-            $("#info_box").hide();
-            $("#play_button").show();
-            $("#exit_button").show();
-        });
-    });
-</script>';
-
-
-        // If start game button is clicked then hide the info box and show the quiz box
-        echo '<script>
-    $(document).ready(function(){
-        $("#start-game").click(function(){
-            $("#info_box").hide();
-            $("#quiz_box").show();
-        });
-    });
-</script>';
-
-        // Quiz Script
-        echo '<script>
-    // Declare Start game button
-    let start_game = document.queryCommandIndeterm("#start-game");
-
-    // Declare time variable
-    let time = document.queryCommandIndeterm("#perguntas-tempo");
-    
-    // Declare questions and answers variables
-    let question = document.queryCommandIndeterm("#question");
-    let option1 = document.queryCommandIndeterm("#option1");
-    let option2 = document.queryCommandIndeterm("#option2");
-    let option3 = document.queryCommandIndeterm("#option3");
-    let option4 = document.queryCommandIndeterm("#option4");
-    
-    // Declare next button
-    let next_button = document.queryCommandIndeterm("#next-button");
-    
-    // Declare answer questions variable
-    let answer_question = document.queryCommandIndeterm("#perguntas-respondidas");
-    
-    // Declare score variable
-    let score = document.queryCommandIndeterm(".result_value");
-    
-    
-    let index = 0;
-    let timer = 0;
-    let interval = 0;
-    let correct_answer = 0;
-    
-    // Store answer value
-    let userAnswer = undefined;
-    
-    // When button start game is clicked then start the game
-    let countDown = ()=>{
-        if(time === 20){
-            clearInterval(interval);
-        }else{
-            time++;
-            console.log(time);
+            header('Location:menu_play.php');
         }
-    }
-    
-    setInterval(countDown, 1000);
-    
-    </script>';
 
-        /* As perguntas vão ser geradas aqui e guardadas num array */
+        if (isset($_POST['back_game']) || $_COOKIE['game'] == "0" || isset($_POST['repeat_game']))
+        {
+            setcookie("game", "1", time() + (86400 * 30), "/");
+            echo '
+                    <div class="play-button" id="play_button">
+                        <form action="play.php" method="post">
+                            <input type="submit" name="play" class="btn btn-light btn-lg play-button" value="Jogar">
+                        </form>
+                    </div>
+                    <div class="exit-button" id="exit_button">
+                        <form action="play.php" method="post">
+                            <input type="submit" name="exit_game" class="btn btn-light btn-lg exit-button" value="Sair">
+                        </form>
+                    </div>
+            ';
+        }
+        else if ($_COOKIE['game'] == 1)
+        {
+            setcookie("game", "2", time() + (86400 * 30), "/");
+            // echo for the info box
+            echo '<div class="info_box" id="info_box">
+                        <div class="info_title"><h1>Regras do Jogo</h1></div>
+                        <div class="info_list">
+                            <div class="info">
+                                1- Terá um timeout de <span>20 segundos</span>, depois a resposta é dada como
+                                errada e continua o jogo.
+                            </div>
+                            <div class="info">
+                                2- Cada pergunta terá 4 opções, onde <span>apenas uma</span> é certa.
+                            </div>
+                            <div class="info">
+                                3- O resultado basea-se no número de respostas certas no menor espaço de tempo possível.
+                            </div>
+                            <div class="info">
+                                4- Caso erre uma pergunta, não tem problema. O jogo continua.
+                            </div>
+                        </div>
+                        <div class="button_box">
+                            <form action="play.php" method="post">
+                                <input type="submit" id="back-game" name="back-game" class="btn btn-secondary btn-lg" value="Voltar">
+                            </form>
+                            <br>
+                            <form action="play.php" method="post">
+                                <input type="submit" id="start-game" name="start-game" class="btn btn-primary btn-lg" value="Começar">                            
+                            </form>
+                        </div>
+                    </div>';
+        }
+        else if ($_COOKIE['game'] == 2)
+        {
+            setcookie("game", "3", time() + (86400 * 30), "/");
+            $url = "http://localhost:8000/quiz_questions?IDQuiz=" . $_COOKIE['quiz-id'];
+            $response = json_decode(file_get_contents($url), true);
 
-        // Get the quiz id
-        $quiz_id = $_POST['quiz-id'];
 
-        // Get the url request
-        $url = "http://localhost:8000/quiz_questions?IDQuiz=" . $quiz_id;
-        $response = json_decode(file_get_contents($url), true);
+            setcookie("qtd_q", count($response), time() + (86400 * 30), "/");
+            setcookie("nr_q_atual", "0", time() + (86400 * 30), "/");
+            header("Location:play.php");
+        }
+        else if ($_COOKIE['game'] == 3)
+        {
+            $url = "http://localhost:8000/quiz_questions?IDQuiz=" . $_COOKIE['quiz-id'];
+            $response = json_decode(file_get_contents($url), true);
 
-        // echo for the quiz box
-        echo '<div class="quiz_box" id="quiz_box">';
+            if(isset($_POST['next_question']))
+            {
+                if($_POST['answer'] == $response[$_COOKIE['nr_q_atual'] - 1]['opcao_valida'])
+                {
+                    setcookie("pontuacao", $_COOKIE['pontuacao'] + 1, time() + (86400 * 30), "/");
+                }
 
-        // Start score at 0
-        $score = 0;
+                unset($_POST['next_question']);
+            }
 
-        // Echo top of the quiz
-        echo '<div class="quiz_box_top d-flex justify-content-between align-items-center">
-                    <h1>Quiz - "Nome Inventado"</h1>
-                    <div class="timer_box">
+            if ($_COOKIE['nr_q_atual'] < $_COOKIE['qtd_q'])
+            {
+                $responses = array();
+                $responses[0] = $response[$_COOKIE['nr_q_atual']]['opcao_valida'];
+                $responses[1] = $response[$_COOKIE['nr_q_atual']]['opcao_invalida_1'];
+                $responses[2] = $response[$_COOKIE['nr_q_atual']]['opcao_invalida_2'];
+                $responses[3] = $response[$_COOKIE['nr_q_atual']]['opcao_invalida_3'];
+                sort($responses);
+
+
+                echo '
+                <div class="quiz_box" id="quiz_box">
+                    <div class="quiz_box_top d-flex justify-content-between align-items-center">
+                        <h1>'. $response[$_COOKIE['nr_q_atual']]['pergunta'] .'</h1>
+                        <div class="timer_box">
                         <div class="timer_text">Tempo</div>
                         <div class="timer_value" id="perguntas-tempo"></div>
                     </div>
-      </div>'; // End of quiz_box_top
-
-        // Echo mid of the quiz
-        echo '<div class="quiz_box_mid">';
-
-        // Echo question
-        echo '<div class="question_box"><h1 id="question"></h1></div>';
-
-        // Echo form
-        echo '<form id="quiz_form">';
-
-        echo '<div class="answer_item">
-                    <input type="radio" name="answer" id="option-1" style="display: none;">
-                    <label class="option" for="option-1">Opção 1</label>
-          </div>';
-
-        echo '<div class="answer_item">
-                    <input type="radio" name="answer" id="option-2" style="display: none;">
-                    <label class="option" for="option-2">Opção 2</label>
-            </div>';
-
-        echo '<div class="answer_item">
-                    <input type="radio" name="answer" id="option-3" style="display: none;">
-                    <label class="option" for="option-3">Opção 3</label>
-            </div>';
-
-        echo '<div class="answer_item">
-                    <input type="radio" name="answer" id="option-4" style="display: none;">
-                    <label class="option" for="option-4">Opção 4</label>
-            </div>';
-
-
-        echo '</div>'; // End of quiz_box_mid
-
-
-        // Echo bottom of the quiz
-        echo '<div class="quiz_box_bottom d-flex justify-content-between align-items-center">
-           <p id="perguntas-respondidas" style="margin: 0;">Perguntas respondidas - 2 de 10</p>
-           <button type="submit" id="next-question" class="next-button btn btn-primary btn-lg">
-               Próxima Pergunta
-           </button>';
-
-        echo '</form>'; // End of form
-
-        echo '</div>'; // End of quiz_box_bottom
-
-        // If the time limit is 0 or button next question is clicked then go to the next question
-
-        echo '</div>'; // End of quiz_box
-
-
-        // echo for the result box
-        echo '<div class="result_box" id="result-box">
-                <div class="icon">
-                    <i class="fa fa-child"></i>
                 </div>
+                <form id="quiz_form" method="post" action="play.php">
+                    <div class="quiz_box_mid">
+                        <div class="question_box"><h1 id="question"></h1></div>
+                            <div class="answer_item">
+                                <input type="radio" name="answer" id="option-1" style="display: none;" value="'. $responses[0] .'">
+                                <label class="option" for="option-1">'. $responses[0] .'</label>
+                            </div>
+                            <div class="answer_item">
+                                <input type="radio" name="answer" id="option-2" style="display: none;" value="'. $responses[1] .'">
+                                <label class="option" for="option-2">'. $responses[1] .'</label>
+                            </div>
+                            <div class="answer_item">
+                                <input type="radio" name="answer" id="option-3" style="display: none;" value="'. $responses[2] .'">
+                                <label class="option" for="option-3">'. $responses[2] .'</label>
+                            </div>
+                            <div class="answer_item">
+                                <input type="radio" name="answer" id="option-4" style="display: none;" value="'. $responses[3] .'">
+                                <label class="option" for="option-4">'. $responses[3] .'</label>
+                            </div>
+                    </div>
+                    <div class="quiz_box_bottom d-flex justify-content-between align-items-center">
+                        <p id="perguntas-respondidas" style="margin: 0;">Perguntas respondidas - '. $_COOKIE['nr_q_atual'] . ' de '. $_COOKIE['qtd_q'] .'</p>
+                        <input type="submit" id="next_question" name="next_question" class="btn btn-primary btn-lg" value="Próxima Pergunta">
+                    </div>
+                </form>
+            ';
+                setcookie("nr_q_atual", $_COOKIE['nr_q_atual'] + 1, time() + (86400 * 30), "/");
+            }
+            else
+            {
+                setcookie("game", "4", time() + (86400 * 30), "/");
+                header("Location: play.php");
+            }
 
-                <div class="result_text">
-                    <h1>Resultado</h1>
-                    <p>Você acertou <span class="result_value">2</span> de 10 perguntas.</p>
-                </div>
+        }
+        else if ($_COOKIE['game'] == 4)
+        {
 
-                <div class="button_box">
-                    <button type="button" class="btn btn-primary btn-lg">
-                        Jogar novamente
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-lg">
-                        Voltar
-                    </button>
-                </div>
+            $url = 'http://localhost:8000/login';
+            $response = json_decode(file_get_contents($url), true);
 
-      </div>';
-        /* AQUI VAI SER MANDADO PARA A BASE DE DADOS OS RESULTADOS DESTE QUESTIONARIOS ATRAVÉS DE UM 2 FORMS
-        - UM QUE GUARDA E MANDA O UTILIZADOR PARA ATRÁS COMEÇANDO O QUESTIONARIO NOVAMENTE
-        - OUTRO QUE VOLTA PARA O MENU PRINCIPAL
-        */
+            $id = -1;
+            foreach ($response as $utilizador) {
+                if ($utilizador['username'] == $_SESSION['username'] && $utilizador['password'] == $_SESSION['password']) {
+                    $id = $utilizador['IDLogin'];
+                }
+            }
 
+            $url = 'http://localhost:8000/add_score_quiz?IDLogin=' . $id . '&IDQuiz=' . $_COOKIE['quiz-id'] . '&pontuacao=' . $_COOKIE['pontuacao'];
+            // Make curl post
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, "IDLogin=" . $id . "&IDQuiz=" . $_COOKIE['quiz-id'] . "&pontuacao=" . $_COOKIE['pontuacao']);
+            $result = curl_exec($ch);
+            curl_close($ch);
+
+
+
+            setcookie("game", "0", time() + (86400 * 30), "/");
+            // echo for the result box
+            echo '<div class="result_box" id="result-box">
+                    <div class="icon">
+                        <i class="fa fa-child"></i>
+                    </div>
+                    <div class="result_text">
+                        <h1>Resultado</h1>
+                        <p>Você acertou <span class="result_value">'. $_COOKIE['pontuacao'] .'</span> de '. $_COOKIE['qtd_q'] .' perguntas.</p>
+                    </div>
+        
+                    <div class="button_box">
+                        <form action="play.php" method="post">
+                            <input type="submit" id="end_game" name="exit_game" class="btn btn-primary btn-lg" value="Voltar para os Quizzes">
+                            <input type="submit" id="repeat_game" name="repeat_game" class="btn btn-secondary btn-lg" value="Jogar novamente">
+                        </form>
+                    </div>
+                </div>';
+        }
+
+        // close start
+        echo '</div>';
         // close container
         echo '</div>';
         // close background

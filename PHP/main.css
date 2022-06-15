@@ -134,11 +134,12 @@ legend {
 
 .card-buttons {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
 }
 
 .card-buttons .btn-primary {
-    margin-right: 5px;
+    margin: 5px;
 }
 
 .btn-text:hover {
@@ -331,7 +332,7 @@ legend {
 }
 
 .info_box {
-    display: none;
+    display: block;
     background: white;
     border-radius: 5px;
 }
@@ -366,7 +367,7 @@ legend {
 .info_box .button_box {
     display: flex;
     justify-content: flex-end;
-    padding: 15px 35px;
+    padding: 10px 35px;
     border-top: 1px solid lightgray;
 }
 
@@ -376,8 +377,13 @@ legend {
     margin-left: 10px;
 }
 
+#back-game
+{
+    margin-right: 5px;
+}
+
 .quiz_box {
-    display: none;
+    display: block;
     background: white;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
@@ -476,7 +482,7 @@ legend {
 }
 
 .result_box {
-    display: none;
+    display: block;
     background: white;
     border-radius: 5px;
     text-align: center;

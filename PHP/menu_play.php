@@ -70,6 +70,9 @@ if (!isset($_SESSION['username'])) {
     // row to a white-box div
     echo '<div class="row white-box"></div>';
 
+    // row to a white-box div
+    echo '<div class="row white-box"></div>';
+
 
     // close container div
     echo '</div>';
