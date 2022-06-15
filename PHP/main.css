@@ -134,11 +134,12 @@ legend {
 
 .card-buttons {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
 }
 
 .card-buttons .btn-primary {
-    margin-right: 5px;
+    margin: 5px;
 }
 
 .btn-text:hover {
