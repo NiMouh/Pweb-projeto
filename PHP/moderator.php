@@ -108,17 +108,21 @@ if ($_SESSION['username'] != $moderator) {
         $url_quiz = "http://localhost:8000/count_user_scores?IDLogin=" . $utilizador['IDLogin'];
         $response_quiz = json_decode(file_get_contents($url_quiz), true);
 
-        // echo form
-        echo "<form action='moderator.php' method='get'>";
-        // echo table row
-        echo "<tr>";
-        echo "<td>" . $utilizador['IDLogin'] . "</td>";
-        echo "<td>" . $utilizador['username'] . "<input type='text' name='delete-user' value='" . $utilizador['username'] . "' style='display: none;'/></td>";
-        echo "<td>" . $utilizador['password'] . "</td>";
-        echo "<td>" . $response_quiz[0]['COUNT(*)'] . "</td>";
-        echo "<td><button type='submit' class='btn btn-danger'>Eliminar</button></td>";
-        echo "</tr>";
-        echo "</form>";
+        // if the user is not the moderator
+        if (strcmp($utilizador['username'], $moderator) != 0) {
+
+            // echo form
+            echo "<form action='moderator.php' method='get'>";
+            // echo table row
+            echo "<tr>";
+            echo "<td>" . $utilizador['IDLogin'] . "</td>";
+            echo "<td>" . $utilizador['username'] . "<input type='text' name='delete-user' value='" . $utilizador['username'] . "' style='display: none;'/></td>";
+            echo "<td>" . $utilizador['password'] . "</td>";
+            echo "<td>" . $response_quiz[0]['COUNT(*)'] . "</td>";
+            echo "<td><button type='submit' class='btn btn-danger'>Eliminar</button></td>";
+            echo "</tr>";
+            echo "</form>";
+        }
     }
 
     // If submit button is pressed then delete the user
@@ -149,6 +153,9 @@ if ($_SESSION['username'] != $moderator) {
 
     // end row
     echo "</div>";
+
+    // row with white box div
+    echo '<div class="row white-box"></div>';
 
     // row with white box div
     echo '<div class="row white-box"></div>';

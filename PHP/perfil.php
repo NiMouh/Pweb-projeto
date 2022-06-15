@@ -9,6 +9,7 @@ if (isset($_SESSION['username'])) {
 
     // div for perfil container
     echo '<div class="profile-container d-flex flex-column">';
+    echo '<form action="perfil.php" method="post">';
 
     // div for perfil-header
     echo '<div class="profile-header d-flex justify-content-between">';
@@ -32,7 +33,7 @@ if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
 
     // Echo the username
-    echo '<input type="text" id="profile-username" readonly value="' . $username . '"/>';
+    echo '<input type="text" id="profile-username" name="profile_username" readonly value="' . $username . '"/>';
 
     // If edit-profile is clicked, set readonly to true else false
     echo '<script>
@@ -55,12 +56,24 @@ if (isset($_SESSION['username'])) {
     echo '<div class="resultados-container">';
 
     // Echo 'Resultados'
-    echo '<h4 class="profile-text">Resultados</h4>';
+    echo '<h4 class="profile-text">Questionários Feitos</h4>';
 
-    /* FALTA COLOCAR AQUI A QUERY */
+    $url = 'http://localhost:8000/login';
+    $response = json_decode(file_get_contents($url), true);
+
+    $id = -1;
+    foreach ($response as $utilizador) {
+        if ($utilizador['username'] == $_SESSION['username'] && $utilizador['password'] == $_SESSION['password']) {
+            $id = $utilizador['IDLogin'];
+        }
+    }
+
+    $url_quiz = "http://localhost:8000/count_user_scores?IDLogin=" . $id;
+    $response_quiz = json_decode(file_get_contents($url_quiz), true);
+
 
     // Echo the results
-    echo '<p>0</p>';
+    echo '<p>'. $response_quiz[0]['COUNT(*)'] .'</p>';
 
     // close div for resultados
     echo '</div>';
@@ -71,10 +84,11 @@ if (isset($_SESSION['username'])) {
     // Echo 'Maior pontuação'
     echo '<h4 class="profile-text">Maior pontuação</h4>';
 
-    /* FALTA COLOCAR AQUI A QUERY */
+    $url_quiz_1 = "http://localhost:8000/greatest_user_score?IDLogin=" . $id;
+    $response_quiz_1 = json_decode(file_get_contents($url_quiz_1), true);
 
     // Echo the highest score
-    echo '<p>0</p>';
+    echo '<p>'. $response_quiz_1[0]['MAX(pontuacao)'] .'</p>';
 
     // close div for maior pontuanção
     echo '</div>';
@@ -83,37 +97,38 @@ if (isset($_SESSION['username'])) {
     echo '<div class="guardar-container">';
 
     // Echo guardar button
-    echo '<button class="profile-save-chances btn btn-primary">Guardar</button>';
+    echo '<input type="submit" class="profile-save-chances btn btn-primary" value="Guardar"/>';
 
     // Declares $password as user's password
     $password = $_SESSION['password'];
 
-    // If the user clicks the button, pop up a confirmation box and check if it matches with the $password variable, if so, get the profile_username value
-    echo '<script>
-            document.getElementsByClassName("profile-save-chances")[0].addEventListener("click", function() {
-                var confirm = prompt("Confirmar palavra-passe");
-                if (confirm === "' . $password . '") {
-                    var profile_username = document.getElementById("profile-username").value;
-                    window.location.href = "http://localhost:8000/update_profile?username=" + profile_username + "&old_username=" + ' . $username . ';
-                } else {
-                    alert("Palavra-passe incorreta");
-                }
-            });
-            </script>';
 
-    /* PRECISO DE UMA MANEIRA DE OBTER A VARIAVEL PROFILE USERNAME ACIMA */
+    if (isset($_POST['profile_username']))
+    {
 
-    /*
-    // Get profile_username value from last script
-    $url_update = "http://localhost:8000/update_profile?username=" . $profile_username . "&old_username=". $username;
-    // IF url_update is not empty curl it to update the profile
-    if ($url_update != "") {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url_update);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $output = curl_exec($ch);
-        curl_close($ch);
-    }*/
+        $username = $_POST['profile_username'];
+
+        $url = 'http://localhost:8000/login';
+        $response = json_decode(file_get_contents($url), true);
+
+        $id = -1;
+        foreach ($response as $utilizador) {
+            if ($utilizador['username'] == $username && $utilizador['password'] == $password) {
+                $name = $utilizador['username'];
+            }
+        }
+
+        $url_update = "http://localhost:8000/update_profile?username=" . $_POST['profile_username'] . "&old_username=" . $_SESSION['username'];
+        // curl update request
+        if ($url_update != "") {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url_update);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $output = curl_exec($ch);
+            curl_close($ch);
+        }
+    }
+
 
     // close div for guardar
     echo '</div>';
@@ -121,6 +136,7 @@ if (isset($_SESSION['username'])) {
     // close div for perfil-footer
     echo '</div>';
 
+    echo '</form>';
     // close div for perfil container
     echo '</div>';
 
